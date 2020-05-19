@@ -18,8 +18,8 @@ RSpec.describe "As a user" do
 
     click_on "Search For Members"
 
-    expect(page).to have_css(".order_of_phoenix_member", count: 21)
-    within(first(".order_of_phoenix_members")) do
+    expect(page).to have_css(".member", count: 21)
+    within(first(".member")) do
       expect(page).to have_css(".name")
       expect(page).to have_css(".role")
       expect(page).to have_css(".house")
