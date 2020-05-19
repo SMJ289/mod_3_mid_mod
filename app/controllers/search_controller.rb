@@ -1,8 +1,13 @@
 class SearchController < ApplicationController
   def index
     house = params[:house]
-    
-    response = conn.get('https://www.potterapi.com/v1/characters/?key=$2a$10$A7Mo98EdH1RhntinPC12duKbhkP/yTdwlA8OXqFMpLcInDkJKWvnW&house=Gryffindor')
-    binding.pry
+
+    conn = Faraday.new(url: 'https://www.potterapi.com/v1/')
+
+    response = conn.get("characters/?key=#{ENV['KEY']}&house=#{house}")
+    json = JSON.parse(response.body, symbolize_names: true)
+    @order_of_phoenix_members = json.map do |data|
+      Member.new(data)
+    end
   end
 end
